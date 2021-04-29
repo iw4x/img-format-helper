@@ -4,10 +4,10 @@ This small tool is made to visualize, export, and eventually convert the most po
 
 ## Formats
 It currently supports the following formats:
-- IWI v6 (Call of duty 4)
-- IWI v8 (Call of duty 6)
-- FFIMG (as of 04/29/2021) (Zonetool)
-- IW4XImage v0
+- IWI v6 (Call of Duty 4: Modern Warfare)
+- IWI v8 (Call of Duty 6: Modern Warfare 2)
+- FFIMG (as of 04/29/2021) ([Zonetool](https://github.com/ZoneTool/zonetool))
+- IW4XImage v0 ([Zonebuilder](https://github.com/XLabsProject/iw4x-client))
 
 The underlying supported formats are:
 - IMG_FORMAT_BITMAP_ALPHA
