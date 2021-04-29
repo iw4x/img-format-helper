@@ -1,0 +1,12 @@
+﻿<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+  <Costura>
+    <Unmanaged32Assemblies>
+      NativeSquish_x86
+      OpenJpegDotNetNative
+    </Unmanaged32Assemblies>
+    <Unmanaged64Assemblies>
+      NativeSquish_x64
+      OpenJpegDotNetNative
+    </Unmanaged64Assemblies>
+  </Costura>
+</Weavers>
