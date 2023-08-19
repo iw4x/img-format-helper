@@ -30,7 +30,7 @@ namespace IWImgViewer
 
         public int Flags => (int)flags;
 
-        public byte MipLevels => (byte)((flags & (byte)IwiFlags.IMG_FLAG_NOMIPMAPS) == 0 ? 0 : 1 + Math.Floor(Math.Log(Math.Max(dimensions[0], Math.Max(dimensions[1], dimensions[2])), 2)));
+        public byte MipLevels => (byte)((flags & (byte)Iwi8Flags.IMG_FLAG_NOMIPMAPS) == 0 ? 0 : 1 + Math.Floor(Math.Log(Math.Max(dimensions[0], Math.Max(dimensions[1], dimensions[2])), 2)));
 
         public byte Semantic => 0;
 
@@ -44,7 +44,7 @@ namespace IWImgViewer
 
         public string Name => name;
 
-        public MapType MapType => (flags & (int)IwiFlags.IMG_FLAG_CUBEMAP) == 0 ? MapType.MAPTYPE_2D : MapType.MAPTYPE_CUBE;
+        public MapType MapType => (flags & (int)Iwi8Flags.IMG_FLAG_MAPTYPE_CUBE) == 0 ? MapType.MAPTYPE_2D : MapType.MAPTYPE_CUBE;
 
         public _D3DFORMAT D3dFormat => _D3DFORMAT.D3DFMT_A8B8G8R8;
 
@@ -138,7 +138,7 @@ namespace IWImgViewer
 
             // Compute mips filesizes
             var currentFileSize = 32; // IWI Header Size
-            var textureMipCount = (flags & (uint)IwiFlags.IMG_FLAG_NOMIPMAPS) == 0 ? 1 : header.MipLevels;
+            var textureMipCount = (flags & (uint)Iwi8Flags.IMG_FLAG_NOMIPMAPS) == 0 ? 1 : header.MipLevels;
             for (var currentMipLevel = textureMipCount - 1; currentMipLevel >= 0; currentMipLevel--)
             {
                 var blockSize = FormatHelper.GetBlockSize(format);

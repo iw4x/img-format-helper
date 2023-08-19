@@ -22,7 +22,7 @@ namespace IWImgViewer
             new CoD6_GfxImageFileHeader()
         }.AsReadOnly();
 
-        public string FormatDescription => $"Zonebuilder-compatible ({FormatExtension})";
+        public string FormatDescription => $"Zonebuilder/IW4OF compatible ({FormatExtension} v1)";
 
         public string FormatExtension => "iw4xImage";
 
@@ -48,12 +48,9 @@ namespace IWImgViewer
 
         public _D3DFORMAT D3dFormat => format;
 
-        public GfxImageFileFormat GfxFormat
-        {
-            get
-            {
-                switch (format)
-                {
+        public GfxImageFileFormat GfxFormat {
+            get {
+                switch (format) {
                     default:
                         return GfxImageFileFormat.IMG_FORMAT_BITMAP_RGBA;
 
@@ -68,22 +65,46 @@ namespace IWImgViewer
 
         public ImageCategory Category => category;
 
+        private byte version = 0;
+
         public void Deserialize(BinaryReader br)
         {
+            version = br.ReadByte();
+
             mapType = (MapType)br.ReadByte();
             semantic = br.ReadByte();
             category = (ImageCategory)br.ReadByte();
             size = br.ReadInt32();
-            levelCount = br.ReadByte();
-            flags = br.ReadByte();
-            dimensions = new short[]
-            {
-                br.ReadInt16(),
-                br.ReadInt16(),
-                br.ReadInt16()
-            };
-            format = (_D3DFORMAT)br.ReadInt32();
-            resourceSize = br.ReadInt32();
+
+            if (version == '0') {
+                levelCount = br.ReadByte();
+                flags = br.ReadByte();
+                dimensions = new short[]
+                {
+                    br.ReadInt16(),
+                    br.ReadInt16(),
+                    br.ReadInt16()
+                };
+                format = (_D3DFORMAT)br.ReadInt32();
+                resourceSize = br.ReadInt32();
+
+            }
+            else  if (version == 1){
+                levelCount = br.ReadByte();
+                flags = (byte)br.ReadInt32();
+                dimensions = new short[]
+                {
+                    br.ReadInt16(),
+                    br.ReadInt16(),
+                    br.ReadInt16()
+                };
+
+                resourceSize = size;
+                format = (_D3DFORMAT)br.ReadInt32();
+            }
+            else {
+                throw new System.Exception($"Unsupported IW4XImage version {version}");
+            }
         }
 
         public void Serialize(BinaryWriter bw)

@@ -44,6 +44,7 @@ namespace IWImgViewer
             this.PreviewBox.Location = new System.Drawing.Point(0, 0);
             this.PreviewBox.Name = "PreviewBox";
             this.PreviewBox.Size = new System.Drawing.Size(282, 259);
+            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PreviewBox.TabIndex = 1;
             this.PreviewBox.TabStop = false;
             // 

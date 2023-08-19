@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IWImgViewer
 {
-    enum IwiFlags : int
+    enum Iwi6Flags : int
     {
         IMG_FLAG_NOPICMIP = 1 << 0,
         IMG_FLAG_NOMIPMAPS = 1 << 1,

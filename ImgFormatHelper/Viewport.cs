@@ -14,7 +14,9 @@ namespace IWImgViewer
     public partial class Viewport : Form
     {
         MainWindow parent;
-        
+
+        int zoom = 1;
+
         EasyFilters exportFilters = new EasyFilters(
                 ("Portable Graphics Network", "PNG"),
                 ("Windows Bitmap", "BMP"),
@@ -52,18 +54,39 @@ namespace IWImgViewer
                 return true;
             }
 
+            if (keyData == Keys.Z) 
+            {
+                switch (zoom) {
+                    case 1:
+                        SetSize(2);
+                        break;
+                    case 2:
+                        SetSize(4);
+                        break;
+                    default:
+                        SetSize(1);
+                        break;
+                }
+               
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        public void ShowImage(Bitmap bmp)
+        public void ShowImage(Bitmap bmp, string name)
         {
             PreviewBox.Image = bmp;
-            this.Width = PreviewBox.Image.Width + 16;
-            this.Height = PreviewBox.Image.Height + 39;
-
-            this.MetaDataLabel.Text = $"{bmp.Width}x{bmp.Height}";
+            SetSize(1);
+            this.MetaDataLabel.Text = $"{name}{bmp.Width}x{bmp.Height}";
 
             Refresh();
+        }
+
+        private void SetSize(int zoom)
+        {
+            this.zoom = zoom;
+            this.Width = zoom * PreviewBox.Image.Width + 16;
+            this.Height = zoom * PreviewBox.Image.Height + 39;
         }
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)

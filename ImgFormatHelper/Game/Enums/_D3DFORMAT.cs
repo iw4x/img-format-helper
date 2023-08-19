@@ -41,6 +41,12 @@ namespace IWImgViewer
         D3DFMT_Q8W8V8U8 = 63,
         D3DFMT_V16U16 = 64,
         D3DFMT_A2W10V10U10 = 67,
+
+        D3DFMT_DXT1 = 0x31545844,
+        D3DFMT_DXT2 = 0x32545844,
+        D3DFMT_DXT3 = 0x33545844,
+        D3DFMT_DXT4 = 0x34545844,
+        D3DFMT_DXT5 = 0x35545844
     }
 
 }

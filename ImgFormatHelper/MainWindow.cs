@@ -34,11 +34,11 @@ namespace IWImgViewer
             MetaDataLabel.Text = "Ready!\nDrag and drop an image\nover here to start!";
         }
 
-        private void Viewer_OnBitmapRead(Bitmap arg1)
+        private void Viewer_OnBitmapRead(Bitmap arg1, string name)
         {
             var viewport = new Viewport(this);
             viewport.Show();
-            viewport.ShowImage(arg1);
+            viewport.ShowImage(arg1, name);
 
             viewports.Enqueue(viewport);
         }
@@ -116,6 +116,11 @@ namespace IWImgViewer
                 saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                 saveFileDialog1.Filter = convertFilters.ToString();
                 saveFileDialog1.ShowDialog(this);
+                return true;
+            }
+
+            if (keyData == Keys.A) {
+                reader.UseAlpha = !reader.UseAlpha;
                 return true;
             }
 
